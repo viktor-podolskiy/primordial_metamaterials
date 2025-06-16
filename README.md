@@ -1,0 +1,1 @@
+Matlab source codes for calculating dispersion of nonlocal layer-based photonic crystals and for calculating field distributions across these structures. Copy the files and run nonlocalPCdispersionPrimordial.m

@@ -1,6 +1,5 @@
 function [scaleData] = zScaleFun(L0,data)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Nonlinear scale for 3D dispersion plots
 scaleData=data/L0; 
 scaleData(abs(scaleData)>1)=sign(scaleData(abs(scaleData)>1)).*...
     (log10(abs(scaleData(abs(scaleData)>1)))+1); 

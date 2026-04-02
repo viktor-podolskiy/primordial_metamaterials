@@ -1,12 +1,11 @@
 function [Ttot,kzi,RMati,TMati] = nonlocalTMMcalcT(omg0,kx,di,epsPerp,epsZZ,alpZZ)
-%implementation of transmission/reflection calculations in nonlocal
-%multilayered composites; see "Primordial Media: the shrouded realm of
-%composite materials" for details
+%Calculate transmission and associated values through nonlocal stack 
 
 
-% setting up material-dependent propagation constants, as well as T and R
-% matricex
+
 kzi=cell(length(epsPerp),1); 
+% apli=kzi; 
+% amini=kzi; 
 RMati=cell(length(epsPerp)-1,1); 
 TMati=RMati; 
 
@@ -17,6 +16,8 @@ for ilr=1:length(epsPerp)
         if imag(kzi{ilr})<0
             kzi{ilr}=-kzi{ilr}; 
         end 
+        % apli{ilr}=0; 
+        % amini{ilr}=0; 
         RMati{ilr}=0; 
     else 
         DD=sqrt((alpZZ(ilr)*epsPerp(ilr)+epsZZ(ilr))^2-4*epsPerp(ilr)*alpZZ(ilr)*kx^2/omg0^2); 
@@ -24,6 +25,8 @@ for ilr=1:length(epsPerp)
         kzz=omg0*sqrt((alpZZ(ilr)*epsPerp(ilr)-epsZZ(ilr)+pm*[DD;-DD])/2/alpZZ(ilr));
         kzz(imag(kzz)<0)=-kzz(imag(kzz)<0); 
         kzi{ilr}=kzz; 
+        % apli{ilr}=[0;0]; 
+        % amini{ilr}=[0;0]; 
         RMati{ilr}=zeros(2); 
     end 
 end 
@@ -43,6 +46,7 @@ for ilr=length(epsPerp)-1:-1:1
         TMati{ilr}=RT(1);
         RMati{ilr}=RT(2); 
     elseif mP==2 && mM==1
+%             epsZZnl=(epsZZ(ilr+1)+alpZZ(ilr+1)*kzi{ilr+1}.^2/omg0^2); %./kzi{ilr+1}; 
         FM=diag(exp(1i*kzi{ilr+1}*dC));
         RTild=FM*RMati{ilr+1}*FM;
 

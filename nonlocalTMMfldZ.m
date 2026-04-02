@@ -1,5 +1,5 @@
-function [Ex,Hy] = nonlocalTMMfldZ(di,epsPerp,epsZZ,alp,kzi,aPl,aMin,zt,nlOnly)
-%Calculates the field distributions based on pre-calculated mode amplitudes
+function [Ex,Hy] = nonlocalTMMfldZ(di,epsPerp,kzi,aPl,aMin,zt,nlOnly)
+%Calculates the field distributions based on pre-calculated coefficients
 
 Ex=0*zt; 
 Hy=0*zt; 
